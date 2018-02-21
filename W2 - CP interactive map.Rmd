@@ -1,0 +1,24 @@
+---
+title: "Course Project - Creating Data Products W2"
+author: "Benoît Fayolle"
+date: "21 février 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Average Wind in France 2007
+```{r,echo=FALSE}
+DF<-read.table("/home/ben/Documents/Coursera/Course9/meanWind2007France.csv",header=T,sep=",",dec=".",quote="")
+```
+
+```{r}
+library(leaflet)
+WindMap <- DF %>% leaflet() %>% addTiles() %>%
+    addCircleMarkers(lng=DF$lon,lat=DF$lat,color="green",
+                     weight=1,radius=DF$meanWind,popup=paste(DF$Name,format(DF$meanWind,digits=2)," m/s"))
+WindMap
+```
+Average Wind map for 2007 recorded at french stations height =10m). Data source: NOAA WMO Resolution 40 
