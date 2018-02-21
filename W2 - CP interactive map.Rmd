@@ -1,0 +1,20 @@
+---
+title: "Course Project - Creating Data Products W2"
+author: "Benoît Fayolle"
+date: "21 février 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Average Wind in France 2007
+```{r}
+library(leaflet)
+DF<-read.table("/home/ben/Documents/Coursera/Course9/meanWind2007France.csv",header=T,sep=",",dec=".",quote="")
+
+WindMap <- DF %>% leaflet() %>% addTiles() %>%
+    addCircleMarkers(weight=1,radius=DF$meanWind,popup=paste(DF$Name,format(DF$meanWind,digits=2)," m/s"))
+WindMap
+```
